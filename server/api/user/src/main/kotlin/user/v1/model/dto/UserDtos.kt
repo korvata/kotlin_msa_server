@@ -1,11 +1,22 @@
 package user.v1.model.dto
 
+import com.fasterxml.jackson.annotation.JsonInclude
 import user.v1.model.entity.UserEntity
 import java.util.*
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
+
+data class UserDto(
+    val email: String,
+    val name: String,
+    val pwd: String,
+    val userId: String,
+    val createdAt: Date,
+    val encryptedPwd: String,
+    var orders: MutableList<OrderResponse>
+)
 
 data class RegisterUserRequest(
     @field:NotNull(message = "Email cannot be null")
@@ -26,11 +37,12 @@ data class RegisterUserRequest(
     }
 }
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 data class UserResponse(
     val email: String,
     val name: String,
     val userId: String,
-    //val orders: MutableList<OrderResponse> = mutableListOf()
+    val orders: MutableList<OrderResponse> = mutableListOf()
 ) {
     constructor(user: UserEntity) : this(
         user.email,
@@ -47,4 +59,14 @@ data class LoginRequest(
     @field:NotBlank(message = "pass word cannot be null")
     @field:Size(min = 8, message = "password must be equal or grater than 8 characters less then 16 characters")
     val password: String?
+)
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+data class OrderResponse(
+    val productId: String,
+    val quantity: Int,
+    val unitPrice: Int,
+    val totalPrice: Int,
+    val createdAt: Date,
+    val orderId: String
 )

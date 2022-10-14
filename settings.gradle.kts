@@ -5,3 +5,5 @@ include("server:base:gateway")
 findProject(":server:base:gateway")?.name = "gateway"
 include("server:api:user")
 findProject(":server:api:user")?.name = "user"
+include("server:api:catalog")
+findProject(":server:api:catalog")?.name = "catalog"

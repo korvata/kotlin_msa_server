@@ -5,7 +5,7 @@ spring:
   application:
     name: user-service
   datasource:
-    url: jdbc:mysql://localhost:3306/pablo?serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/shopping?serverTimezone=UTC&characterEncoding=UTF-8
     username: root
     password: 12341234
     driver-class-name: com.mysql.cj.jdbc.Driver
