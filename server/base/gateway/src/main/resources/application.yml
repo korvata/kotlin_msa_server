@@ -4,6 +4,25 @@ server:
 spring:
   application:
     name: gateway-service
+  cloud:
+    gateway:
+      default-filters:
+        - name: GlobalFilter
+          args:
+            baseMessage: Spring Cloud Gateway GlobalFilter
+            preLogger: true
+            PostLogger: true
+      routes:
+        - id: user-service
+          uri: http://localhost:30100/
+          predicates:
+            - Path=/user-service/**
+          filters:
+            - name: LoggingFilter
+              args:
+                baseMessage: Spring Cloud Gateway GlobalFilter
+                preLogger: true
+                PostLogger: true
 
 eureka:
   client:
