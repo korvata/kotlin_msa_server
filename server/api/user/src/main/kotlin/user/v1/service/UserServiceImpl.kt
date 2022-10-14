@@ -1,6 +1,7 @@
 package user.v1.service
 
 import org.slf4j.LoggerFactory
+import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -30,13 +31,10 @@ class UserServiceImpl(
         return userRepository.findAll().map(::UserResponse)
     }
 
-    /*
     override fun findByUserId(userId: String): UserResponse {
         val userEntity = userRepository.findByUserId(userId) ?: throw UsernameNotFoundException("사용자를 찾을 수 없습니다.")
-        val userResponse = UserResponse(userEntity)
-        val orders = orderServiceClient.getOrders(userId)
-        userResponse.orders.addAll(orders)
-        return userResponse
-    }*/
+
+        return UserResponse(userEntity)
+    }
 
 }
