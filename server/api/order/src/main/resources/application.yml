@@ -1,0 +1,31 @@
+server:
+  port: 30300
+
+spring:
+  application:
+    name: order-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/shopping?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: 12341234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  sql:
+    init:
+      mode: always
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create-drop
+      format-sql: true
+      show-sql: true
+      generate-ddl: true
+      dialect: org.hibernate.dialect.MySQL8Dialect
+
+eureka:
+  instance:
+    instanceId: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka

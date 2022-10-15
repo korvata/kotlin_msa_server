@@ -33,6 +33,16 @@ spring:
                 baseMessage: Spring Cloud Gateway GlobalFilter
                 preLogger: true
                 PostLogger: true
+        - id: order-service
+          uri: lb://ORDER-SERVICE
+          predicates:
+            - Path=/order-service/**
+          filters:
+            - name: LoggingFilter
+              args:
+                baseMessage: Spring Cloud Gateway GlobalFilter
+                preLogger: true
+                PostLogger: true
 
 eureka:
   instance:
