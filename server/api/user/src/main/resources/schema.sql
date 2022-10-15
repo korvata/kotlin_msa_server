@@ -5,6 +5,7 @@ create table users(
     NAME VARCHAR(255) NOT NULL,
     EMAIL VARCHAR(255) NOT NULL,
     PASSWORD VARCHAR(255) NOT NULL,
-    USER_ID VARCHAR(255),
+    USER_ID VARCHAR(255) NOT NULL,
+    created_at datetime NOT NULL,
     PRIMARY KEY (ID)
 );

@@ -28,7 +28,7 @@ class SecurityConfig(
     }
 
     private fun getAuthenticationFilter(): AuthenticationFilter {
-        val authenticationFilter = AuthenticationFilter(env)
+        val authenticationFilter = AuthenticationFilter(env, customUserDetailService)
         authenticationFilter.setAuthenticationManager(this.authenticationManager())
         return authenticationFilter
     }

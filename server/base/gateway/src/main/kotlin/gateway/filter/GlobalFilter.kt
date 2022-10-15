@@ -28,6 +28,7 @@ class GlobalFilter : AbstractGatewayFilterFactory<GlobalFilter.Config>(Config::c
 
             if (config.preLogger) {
                 logger.info("Logging Filter pre: request id -> {}", request.id)
+                logger.info("Logging Filter pre: request id -> {}", request.uri)
             }
 
             chain.filter(exchange).then(

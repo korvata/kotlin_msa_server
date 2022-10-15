@@ -9,3 +9,5 @@ include("server:api:catalog")
 findProject(":server:api:catalog")?.name = "catalog"
 include("server:api:order")
 findProject(":server:api:order")?.name = "order"
+include("server:api:auth")
+findProject(":server:api:auth")?.name = "auth"

@@ -1,6 +1,6 @@
 package user.v1.model.entity
 
-import java.util.UUID
+import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
@@ -13,7 +13,9 @@ class UserEntity(
     @Column(nullable = false)
     var password: String,
     @Column(nullable = false, unique = true)
-    val userId: String
+    val userId: String,
+    @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    var createdAt: LocalDateTime = LocalDateTime.now()
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

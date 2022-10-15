@@ -6,4 +6,12 @@ import user.v1.model.entity.UserEntity
 
 class CustomUser(
     val userEntity: UserEntity
-) : User(userEntity.email, userEntity.password, listOf(SimpleGrantedAuthority("ROLE_USER")))
+) : User(
+        userEntity.email,
+        userEntity.password,
+        true,
+        true,
+        true,
+        true,
+        listOf(SimpleGrantedAuthority("ROLE_USER"))
+    )

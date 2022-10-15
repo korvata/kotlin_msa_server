@@ -12,10 +12,7 @@ data class UserDto(
     val email: String,
     val name: String,
     val pwd: String,
-    val userId: String,
-    val createdAt: Date,
-    val encryptedPwd: String,
-    var orders: MutableList<OrderResponse>
+    val userId: String
 )
 
 data class RegisterUserRequest(

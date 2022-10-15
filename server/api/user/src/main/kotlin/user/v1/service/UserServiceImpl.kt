@@ -37,9 +37,9 @@ class UserServiceImpl(
     override fun findByUserId(userId: String): UserResponse {
         val userEntity = userRepository.findByUserId(userId) ?: throw UsernameNotFoundException("사용자를 찾을 수 없습니다.")
         val userDto = ModelMapper().map(userEntity, UserDto::class.java)
-        userDto.orders = mutableListOf()
+        //userDto.orders = mutableListOf()
 
-        return UserResponse(userEntity)
+        return UserResponse(userDto.email, userDto.name, userDto.userId)
     }
 
 }

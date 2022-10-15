@@ -1,9 +1,9 @@
 server:
-  port: 30100
+  port: 30400
 
 spring:
   application:
-    name: user-service
+    name: auth-service
   datasource:
     url: jdbc:mysql://localhost:3306/shopping?serverTimezone=UTC&characterEncoding=UTF-8
     username: root
@@ -29,7 +29,3 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://localhost:8761/eureka
-
-token:
-  expiration_time: 864000000 #10 days
-  secret: user_token
