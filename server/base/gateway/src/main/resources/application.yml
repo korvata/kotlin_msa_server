@@ -18,7 +18,8 @@ spring:
       #    predicates:
       #      - Path=/user-service/**
 
-        #user-service
+      #user-service
+        #login
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
@@ -27,7 +28,7 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
-
+        #post user-service
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
@@ -36,6 +37,7 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+        #get user-service
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
