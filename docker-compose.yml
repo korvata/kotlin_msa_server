@@ -1,0 +1,116 @@
+version: '3'
+
+services:
+  database:
+    image: mysql
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: "password"
+    ports:
+      - "3306:3306"
+    networks:
+      - msa-network
+    restart: always
+  #config:
+  #  image: dvmflstm/config
+  #  depends_on:
+  #    - mysql
+  #  environment:
+  #    MYSQL_CONNECTION_URI: "jdbc:mysql://mysql:3306/test_db?serverTimezone=UTC&characterEncoding=UTF-8&autoReconnection=true"
+  #    MYSQL_ROOT_PASSWORD: "password"
+  #  ports:
+  ##    - 8888:8888
+  #  networks:
+  #    - msa-network
+  eureka:
+    depends_on:
+  #    - config
+      - mysql
+  #  environment:
+  #    CONFIG_SERVER_URI: "http://config:8888"
+    ports:
+      - "8761:8761"
+    networks:
+      - msa-network
+  gateway:
+    depends_on:
+      #- config
+      - eureka
+      - database
+    environment:
+      #CONFIG_SERVER_URI: "http://config:8888"
+      EUREKA_SERVER_URI: "http://eureka:8761/eureka"
+      MYSQL_CONNECTION_URI: "jdbc:mysql://mysql:3306/shopping?serverTimezone=UTC&characterEncoding=UTF-8&autoReconnection=true"
+      MYSQL_ROOT_PASSWORD: "password"
+    ports:
+      - "8080:8080"
+    restart: always
+    networks:
+      - msa-network
+  #auth:
+  #  image: dvmflstm/auth
+  #  depends_on:
+  #    - config
+  #    - registry
+  #    - mysql
+  #  environment:
+  #    CONFIG_SERVER_URI: "http://config:8888"
+  #    EUREKA_SERVER_URI: "http://registry:8761/eureka"
+  #    MYSQL_CONNECTION_URI: "jdbc:mysql://mysql:3306/test_db?serverTimezone=UTC&characterEncoding=UTF-8&autoReconnection=true"
+  #    MYSQL_ROOT_PASSWORD: "password"
+  #    JWT_SECRET_KEY: "geunyoung_jwt_secret"
+  #  ports:
+  #    - 8081:8080
+  #  networks:
+  #    - msa-network
+  user:
+    depends_on:
+      #  - config
+      - eureka
+      - gateway
+      - database
+    environment:
+      #CONFIG_SERVER_URI: "http://config:8888"
+      EUREKA_SERVER_URI: "http://eureka:8761/eureka"
+      MYSQL_CONNECTION_URI: "jdbc:mysql://mysql:3306/test_db?serverTimezone=UTC&characterEncoding=UTF-8&autoReconnection=true"
+      MYSQL_ROOT_PASSWORD: "password"
+    ports:
+      - "30100:8080"
+    restart: always
+    networks:
+      - msa-network
+  catalog:
+    depends_on:
+    #  - config
+      - eureka
+      - gateway
+      - database
+    environment:
+    #  CONFIG_SERVER_URI: "http://config:8888"
+      EUREKA_SERVER_URI: "http://eureka:8761/eureka"
+      MYSQL_CONNECTION_URI: "jdbc:mysql://mysql:3306/shopping?serverTimezone=UTC&characterEncoding=UTF-8&autoReconnection=true"
+      MYSQL_ROOT_PASSWORD: "password"
+    ports:
+      - "30200:8080"
+    restart: always
+    networks:
+      - msa-network
+  order:
+    depends_on:
+    #  - config
+      - eureka
+      - gateway
+      - database
+    environment:
+      #CONFIG_SERVER_URI: "http://config:8888"
+      EUREKA_SERVER_URI: "http://eureka:8761/eureka"
+      MYSQL_CONNECTION_URI: "jdbc:mysql://mysql:3306/test_db?serverTimezone=UTC&characterEncoding=UTF-8&autoReconnection=true"
+      MYSQL_ROOT_PASSWORD: "password"
+    ports:
+      - "30300:8080"
+    restart: always
+    networks:
+      - msa-network
+networks:
+  msa-network:
+    external: true
