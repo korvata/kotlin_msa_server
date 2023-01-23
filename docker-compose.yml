@@ -12,7 +12,7 @@ services:
       - msa-network
     restart: always
   #config:
-  #  image: dvmflstm/config
+  #  image: openjdk:11-jdk
   #  depends_on:
   #    - mysql
   #  environment:
@@ -23,6 +23,7 @@ services:
   #  networks:
   #    - msa-network
   eureka:
+    image: openjdk:11-jdk
     depends_on:
   #    - config
       - mysql
@@ -33,6 +34,7 @@ services:
     networks:
       - msa-network
   gateway:
+    image: openjdk:11-jdk
     depends_on:
       #- config
       - eureka
@@ -56,7 +58,7 @@ services:
   #  environment:
   #    CONFIG_SERVER_URI: "http://config:8888"
   #    EUREKA_SERVER_URI: "http://registry:8761/eureka"
-  #    MYSQL_CONNECTION_URI: "jdbc:mysql://mysql:3306/test_db?serverTimezone=UTC&characterEncoding=UTF-8&autoReconnection=true"
+  #    MYSQL_CONNECTION_URI: "jdbc:mysql://mysql:3306/shopping?serverTimezone=UTC&characterEncoding=UTF-8&autoReconnection=true"
   #    MYSQL_ROOT_PASSWORD: "password"
   #    JWT_SECRET_KEY: "geunyoung_jwt_secret"
   #  ports:
@@ -64,6 +66,7 @@ services:
   #  networks:
   #    - msa-network
   user:
+    image: openjdk:11-jdk
     depends_on:
       #  - config
       - eureka
@@ -80,6 +83,7 @@ services:
     networks:
       - msa-network
   catalog:
+    image: openjdk:11-jdk
     depends_on:
     #  - config
       - eureka
@@ -96,6 +100,7 @@ services:
     networks:
       - msa-network
   order:
+    image: openjdk:11-jdk
     depends_on:
     #  - config
       - eureka
