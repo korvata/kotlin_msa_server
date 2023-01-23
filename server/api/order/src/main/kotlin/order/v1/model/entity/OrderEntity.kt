@@ -1,9 +1,11 @@
 package order.v1.model.entity
 
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing
 import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
+@EnableJpaAuditing
 @Table(name = "orders")
 class OrderEntity(
     @Column(nullable = false)

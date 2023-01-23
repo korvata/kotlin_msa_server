@@ -1,9 +1,11 @@
 package user.v1.model.entity
 
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing
 import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
+@EnableJpaAuditing
 @Table(name = "users")
 class UserEntity(
     @Column(unique = true, nullable = false)

@@ -1,10 +1,11 @@
 package catalog.v1.domain.entity
 
-import org.hibernate.annotations.ColumnDefault
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing
 import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
+@EnableJpaAuditing
 @Table(name = "catalog")
 class CatalogEntity(
     @Column(nullable = false, unique = true, length = 120)

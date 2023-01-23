@@ -19,6 +19,9 @@ class SecurityConfig(
     override fun configure(http: HttpSecurity) {
         http.csrf().disable()
         http.authorizeHttpRequests()
+            .antMatchers("/actuator/**")
+            .permitAll()
+        http.authorizeHttpRequests()
             .antMatchers("/**")
             .permitAll()
             .and()
