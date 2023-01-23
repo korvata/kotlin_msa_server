@@ -46,6 +46,14 @@ spring:
           filters:
             - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/actuator/**
+            - Method=GET, POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
 
         - id: catalog-service
           uri: lb://CATALOG-SERVICE
@@ -67,16 +75,6 @@ spring:
                 baseMessage: Spring Cloud Gateway GlobalFilter
                 preLogger: true
                 PostLogger: true
-        - id: auth-service
-          uri: lb://AUTH-SERVICE
-          predicates:
-            - Path=/auth-service/**
-          filters:
-            - name: LoggingFilter
-              args:
-                baseMessage: Spring Cloud Gateway GlobalFilter
-                preLogger: true
-                PostLogger: true
 
 eureka:
   instance:
@@ -86,3 +84,12 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://localhost:8761/eureka
+
+token:
+  secret: user_token
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, httptrace
